@@ -271,11 +271,18 @@ For private repositories, you have several options:
 #### Option 1: Using SSH (Recommended)
 
 ```bash
-# Using uv
+# Using uv - install latest from main branch
 uv pip install git+ssh://git@github.com/your-org/phx-common-modules.git
+
+# Install from specific tag
+uv pip install git+ssh://git@github.com/your-org/phx-common-modules.git@v0.1.0
+
+# Install from specific branch
+uv pip install git+ssh://git@github.com/your-org/phx-common-modules.git@main
 
 # Using pip
 pip install git+ssh://git@github.com/your-org/phx-common-modules.git
+pip install git+ssh://git@github.com/your-org/phx-common-modules.git@v0.1.0
 ```
 
 **Setup SSH key:**
@@ -286,11 +293,18 @@ pip install git+ssh://git@github.com/your-org/phx-common-modules.git
 #### Option 2: Using HTTPS with Personal Access Token
 
 ```bash
-# Using uv
+# Using uv - install latest from main branch
 uv pip install git+https://<TOKEN>@github.com/your-org/phx-common-modules.git
+
+# Install from specific tag
+uv pip install git+https://<TOKEN>@github.com/your-org/phx-common-modules.git@v0.1.0
+
+# Install from specific branch
+uv pip install git+https://<TOKEN>@github.com/your-org/phx-common-modules.git@main
 
 # Using pip
 pip install git+https://<TOKEN>@github.com/your-org/phx-common-modules.git
+pip install git+https://<TOKEN>@github.com/your-org/phx-common-modules.git@v0.1.0
 ```
 
 **Create Personal Access Token:**
@@ -315,26 +329,83 @@ uv pip install git+https://github.com/your-org/phx-common-modules.git
 
 **In requirements.txt:**
 ```
+# Install from main branch (latest)
 git+ssh://git@github.com/your-org/phx-common-modules.git
 # or
 git+https://<TOKEN>@github.com/your-org/phx-common-modules.git
+
+# Install from specific tag (recommended for production)
+git+ssh://git@github.com/your-org/phx-common-modules.git@v0.1.0
+# or
+git+https://<TOKEN>@github.com/your-org/phx-common-modules.git@v0.1.0
+
+# Install from specific branch
+git+ssh://git@github.com/your-org/phx-common-modules.git@develop
 ```
 
 **In pyproject.toml:**
 ```toml
 [project]
 dependencies = [
+    # Install from main branch (latest)
     "phx-common-modules @ git+ssh://git@github.com/your-org/phx-common-modules.git",
     # or
     "phx-common-modules @ git+https://<TOKEN>@github.com/your-org/phx-common-modules.git",
+    
+    # Install from specific tag (recommended for production)
+    "phx-common-modules @ git+ssh://git@github.com/your-org/phx-common-modules.git@v0.1.0",
+    # or
+    "phx-common-modules @ git+https://<TOKEN>@github.com/your-org/phx-common-modules.git@v0.1.0",
+    
+    # Install from specific branch
+    "phx-common-modules @ git+ssh://git@github.com/your-org/phx-common-modules.git@develop",
 ]
 ```
+
+**Note:** When using tags, replace `v0.1.0` with your actual tag name (e.g., `v1.0.0`, `v2.3.1`, etc.). Using tags is recommended for production environments to ensure version stability.
 
 Then install:
 ```bash
 uv pip install -r requirements.txt
 # or
 uv pip install .
+```
+
+### Working with Tags
+
+Tags are recommended for production use as they provide version stability. Here's how to work with them:
+
+**Create a new tag:**
+```bash
+# Create an annotated tag (recommended)
+git tag -a v0.1.0 -m "Release version 0.1.0"
+
+# Push tag to remote
+git push origin v0.1.0
+
+# Push all tags
+git push origin --tags
+```
+
+**List available tags:**
+```bash
+# List all tags
+git tag
+
+# List tags matching a pattern
+git tag -l "v0.*"
+
+# Show tag details
+git show v0.1.0
+```
+
+**Install from a tag:**
+```bash
+# Using uv
+uv pip install git+ssh://git@github.com/your-org/phx-common-modules.git@v0.1.0
+
+# Using pip
+pip install git+ssh://git@github.com/your-org/phx-common-modules.git@v0.1.0
 ```
 
 ### Installing in Editable Mode (Development)
