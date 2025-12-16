@@ -4,7 +4,7 @@ from os import environ
 from typing import Optional
 
 from fastapi_keycloak import FastAPIKeycloak
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 class KeycloakConfig(BaseModel):
@@ -21,13 +21,13 @@ class KeycloakConfig(BaseModel):
     - KC_CALLBACK_URI: OAuth callback URI
     """
 
-    server_url: Optional[str] = environ.get("KC_SERVER_URL", None)
-    client_id: Optional[str] = environ.get("KC_CLIENT_ID", None)
-    client_secret: Optional[str] = environ.get("KC_CLIENT_SECRET", None)
-    admin_client_id: Optional[str] = environ.get("KC_ADMIN_CLIENT_ID", None)
-    admin_client_secret: Optional[str] = environ.get("KC_ADMIN_CLIENT_SECRET", None)
-    realm: Optional[str] = environ.get("KC_REALM", None)
-    callback_uri: Optional[str] = environ.get("KC_CALLBACK_URI", None)
+    server_url: Optional[str] = Field(default_factory=lambda: environ.get("KC_SERVER_URL", None))
+    client_id: Optional[str] = Field(default_factory=lambda: environ.get("KC_CLIENT_ID", None))
+    client_secret: Optional[str] = Field(default_factory=lambda: environ.get("KC_CLIENT_SECRET", None))
+    admin_client_id: Optional[str] = Field(default_factory=lambda: environ.get("KC_ADMIN_CLIENT_ID", None))
+    admin_client_secret: Optional[str] = Field(default_factory=lambda: environ.get("KC_ADMIN_CLIENT_SECRET", None))
+    realm: Optional[str] = Field(default_factory=lambda: environ.get("KC_REALM", None))
+    callback_uri: Optional[str] = Field(default_factory=lambda: environ.get("KC_CALLBACK_URI", None))
 
 
 # Global instance (singleton pattern)
