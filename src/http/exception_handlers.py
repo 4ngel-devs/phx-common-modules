@@ -4,7 +4,7 @@ from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import JSONResponse
 from jose import ExpiredSignatureError
 
-from src.exceptions import PhoenixBaseException
+from src.exceptions import BusinessException
 
 
 def setup_exception_handlers(app: FastAPI) -> None:
@@ -12,7 +12,7 @@ def setup_exception_handlers(app: FastAPI) -> None:
     Setup standard exception handlers for FastAPI application.
     
     This function registers handlers for:
-    - PhoenixBaseException (custom exceptions)
+    - BusinessException (custom exceptions - base for all custom exceptions)
     - ExpiredSignatureError (expired JWT tokens)
     - HTTPException (FastAPI HTTP exceptions)
     - Exception (generic catch-all)
@@ -20,9 +20,9 @@ def setup_exception_handlers(app: FastAPI) -> None:
     Args:
         app: FastAPI application instance
     """
-    @app.exception_handler(PhoenixBaseException)
-    async def base_exception_handler(request: Request, exc: PhoenixBaseException):
-        """Handle custom base exceptions."""
+    @app.exception_handler(BusinessException)
+    async def business_exception_handler(request: Request, exc: BusinessException):
+        """Handle custom business exceptions."""
         return JSONResponse(
             status_code=exc.status_code,
             content={

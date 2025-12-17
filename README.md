@@ -4,6 +4,7 @@ A shared Python library containing common utilities, data models, and response s
 
 ## Features
 
+- **Custom Exceptions**: Exception classes for error handling (`BusinessException` as main exception)
 - **API Response DTO**: Standardized API response structure with pagination support
 - **Pagination**: Pagination data model for paginated responses
 - **Date Utils**: Date and datetime utilities with Mexico timezone support
@@ -48,6 +49,11 @@ phx-common-modules/
 │   ├── data/
 │   │   ├── __init__.py
 │   │   └── pagination.py          # Pagination data model
+│   ├── exceptions/
+│   │   ├── __init__.py
+│   │   ├── base_exception.py      # Base exception class
+│   │   ├── business_exception.py  # Main exception for business logic
+│   │   └── ...                    # Other exception classes
 │   ├── response/
 │   │   ├── __init__.py
 │   │   └── api_response_dto.py    # API response DTO
@@ -62,6 +68,46 @@ phx-common-modules/
 ```
 
 ## Usage
+
+### Custom Exceptions
+
+**BusinessException** is the main exception class for business logic errors. Use it for domain-specific errors and business rule violations.
+
+```python
+from src.exceptions import BusinessException, ValidationException, NotFoundException
+
+# Main exception for business logic errors
+raise BusinessException(
+    message="Insufficient balance",
+    process="process_payment",
+    status_code=400
+)
+
+# Validation errors
+raise ValidationException(
+    message="Invalid email format",
+    process="validate_user",
+    errors=[{"field": "email", "message": "Must be a valid email"}]
+)
+
+# Not found errors
+raise NotFoundException(
+    message="User not found",
+    process="get_user"
+)
+```
+
+**Available exceptions:**
+- `BusinessException` - Main exception for business logic errors (default status: 400)
+- `ValidationException` - Input validation errors (default status: 422)
+- `BadRequestException` - Bad request errors (status: 400)
+- `UnauthorizedException` - Authentication errors (status: 401)
+- `ForbiddenException` - Authorization errors (status: 403)
+- `NotFoundException` - Resource not found (status: 404)
+- `ConflictException` - Resource conflicts (status: 409)
+- `UnprocessableEntityException` - Unprocessable entity (status: 422)
+- `InternalServerErrorException` - Server errors (status: 500)
+- `ServiceUnavailableException` - Service unavailable (status: 503)
 
 ### API Response DTO
 
@@ -429,6 +475,7 @@ uv pip install -e /path/to/phx-common-modules
 Once installed, import and use the modules:
 
 ```python
+from src.exceptions import BusinessException
 from src.response import ApiResponseDto
 from src.data import Pagination
 from src.utils import DateUtils
@@ -436,6 +483,13 @@ from src.utils import DateUtils
 # Your code here
 response = ApiResponseDto.ok({"data": "example"})
 now = DateUtils.now()
+
+# Use BusinessException for business logic errors
+if balance < amount:
+    raise BusinessException(
+        message="Insufficient balance",
+        process="process_payment"
+    )
 ```
 
 ## Development

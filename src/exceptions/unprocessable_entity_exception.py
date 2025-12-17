@@ -1,11 +1,11 @@
-"""Unprocessable Entity (422) exception for Phoenix microservices."""
+"""Unprocessable Entity (422) exception for microservices."""
 
 from typing import Any, List, Optional
 
-from .base_exception import PhoenixBaseException
+from .business_exception import BusinessException
 
 
-class UnprocessableEntityException(PhoenixBaseException):
+class UnprocessableEntityException(BusinessException):
     """
     Exception for unprocessable entity errors (HTTP 422).
     

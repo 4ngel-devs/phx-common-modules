@@ -1,11 +1,11 @@
-"""Validation exceptions for Phoenix microservices."""
+"""Validation exceptions for microservices."""
 
 from typing import Any, List, Optional
 
-from .base_exception import PhoenixBaseException
+from .business_exception import BusinessException
 
 
-class ValidationException(PhoenixBaseException):
+class ValidationException(BusinessException):
     """
     Exception for validation errors.
     

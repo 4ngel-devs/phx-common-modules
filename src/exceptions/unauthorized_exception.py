@@ -1,11 +1,11 @@
-"""Unauthorized (401) exception for Phoenix microservices."""
+"""Unauthorized (401) exception for microservices."""
 
 from typing import Any, List, Optional
 
-from .base_exception import PhoenixBaseException
+from .business_exception import BusinessException
 
 
-class UnauthorizedException(PhoenixBaseException):
+class UnauthorizedException(BusinessException):
     """
     Exception for unauthorized access errors (HTTP 401).
     

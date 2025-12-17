@@ -9,7 +9,6 @@ from src.exceptions import (
     ForbiddenException,
     InternalServerErrorException,
     NotFoundException,
-    PhoenixBaseException,
     ServiceUnavailableException,
     UnauthorizedException,
     UnprocessableEntityException,
@@ -17,12 +16,12 @@ from src.exceptions import (
 )
 
 
-class TestPhoenixBaseException:
-    """Test cases for PhoenixBaseException."""
+class TestBusinessExceptionBase:
+    """Test cases for BusinessException base functionality."""
 
-    def test_base_exception_initialization(self):
-        """Test that base exception initializes correctly."""
-        exc = PhoenixBaseException(
+    def test_business_exception_initialization(self):
+        """Test that business exception initializes correctly."""
+        exc = BusinessException(
             message="Test error",
             process="test_process",
             status_code=500,
@@ -33,10 +32,10 @@ class TestPhoenixBaseException:
         assert exc.status_code == 500
         assert exc.errors == []
 
-    def test_base_exception_with_errors(self):
-        """Test base exception with error details."""
+    def test_business_exception_with_errors(self):
+        """Test business exception with error details."""
         errors = [{"field": "email", "message": "Invalid format"}]
-        exc = PhoenixBaseException(
+        exc = BusinessException(
             message="Validation failed",
             process="validation",
             status_code=422,
@@ -46,19 +45,19 @@ class TestPhoenixBaseException:
         assert exc.errors == errors
         assert len(exc.errors) == 1
 
-    def test_base_exception_str_representation(self):
-        """Test string representation of base exception."""
-        exc = PhoenixBaseException(
+    def test_business_exception_str_representation(self):
+        """Test string representation of business exception."""
+        exc = BusinessException(
             message="Test error",
             process="test_process",
         )
 
         assert str(exc) == "test_process: Test error"
 
-    def test_base_exception_to_dict(self):
+    def test_business_exception_to_dict(self):
         """Test converting exception to dictionary."""
         errors = [{"field": "email", "message": "Invalid"}]
-        exc = PhoenixBaseException(
+        exc = BusinessException(
             message="Test error",
             process="test_process",
             status_code=400,
@@ -71,9 +70,9 @@ class TestPhoenixBaseException:
         assert result["process"] == "test_process"
         assert result["errors"] == errors
 
-    def test_base_exception_inherits_from_exception(self):
-        """Test that base exception inherits from Exception."""
-        exc = PhoenixBaseException(
+    def test_business_exception_inherits_from_exception(self):
+        """Test that business exception inherits from Exception."""
+        exc = BusinessException(
             message="Test",
             process="test",
         )
@@ -335,8 +334,8 @@ class TestBusinessException:
 class TestExceptionInheritance:
     """Test exception inheritance and polymorphism."""
 
-    def test_all_exceptions_inherit_from_base(self):
-        """Test that all exceptions inherit from PhoenixBaseException."""
+    def test_all_exceptions_inherit_from_business_exception(self):
+        """Test that all exceptions inherit from BusinessException."""
         exceptions = [
             BadRequestException("test"),
             UnauthorizedException("test"),
@@ -351,7 +350,7 @@ class TestExceptionInheritance:
         ]
 
         for exc in exceptions:
-            assert isinstance(exc, PhoenixBaseException)
+            assert isinstance(exc, BusinessException)
             assert isinstance(exc, Exception)
 
     def test_all_exceptions_have_to_dict_method(self):

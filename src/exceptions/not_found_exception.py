@@ -1,11 +1,11 @@
-"""Not Found (404) exception for Phoenix microservices."""
+"""Not Found (404) exception for microservices."""
 
 from typing import Any, List, Optional
 
-from .base_exception import PhoenixBaseException
+from .business_exception import BusinessException
 
 
-class NotFoundException(PhoenixBaseException):
+class NotFoundException(BusinessException):
     """
     Exception for resource not found errors (HTTP 404).
     

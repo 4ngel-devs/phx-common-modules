@@ -7,9 +7,9 @@ from jose import ExpiredSignatureError
 
 from src.exceptions import (
     BadRequestException,
+    BusinessException,
     InternalServerErrorException,
     NotFoundException,
-    PhoenixBaseException,
     UnauthorizedException,
 )
 from src.http.exception_handlers import setup_exception_handlers
@@ -30,8 +30,8 @@ class TestExceptionHandlers:
         """Create a test client."""
         return TestClient(app, raise_server_exceptions=False)
 
-    def test_phoenix_base_exception_handler(self, app, client):
-        """Test handler for PhoenixBaseException."""
+    def test_business_exception_handler(self, app, client):
+        """Test handler for BusinessException."""
 
         @app.get("/test-base-exception")
         async def test_endpoint():

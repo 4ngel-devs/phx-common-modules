@@ -1,11 +1,11 @@
-"""Bad Request (400) exception for Phoenix microservices."""
+"""Bad Request (400) exception for microservices."""
 
 from typing import Any, List, Optional
 
-from .base_exception import PhoenixBaseException
+from .business_exception import BusinessException
 
 
-class BadRequestException(PhoenixBaseException):
+class BadRequestException(BusinessException):
     """
     Exception for bad request errors (HTTP 400).
     

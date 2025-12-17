@@ -1,11 +1,11 @@
-"""Conflict (409) exception for Phoenix microservices."""
+"""Conflict (409) exception for microservices."""
 
 from typing import Any, List, Optional
 
-from .base_exception import PhoenixBaseException
+from .business_exception import BusinessException
 
 
-class ConflictException(PhoenixBaseException):
+class ConflictException(BusinessException):
     """
     Exception for conflict errors (HTTP 409).
     

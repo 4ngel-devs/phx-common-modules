@@ -1,11 +1,11 @@
-"""Forbidden (403) exception for Phoenix microservices."""
+"""Forbidden (403) exception for microservices."""
 
 from typing import Any, List, Optional
 
-from .base_exception import PhoenixBaseException
+from .business_exception import BusinessException
 
 
-class ForbiddenException(PhoenixBaseException):
+class ForbiddenException(BusinessException):
     """
     Exception for forbidden access errors (HTTP 403).
     

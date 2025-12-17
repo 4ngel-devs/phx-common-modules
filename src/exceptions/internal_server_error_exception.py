@@ -1,11 +1,11 @@
-"""Internal Server Error (500) exception for Phoenix microservices."""
+"""Internal Server Error (500) exception for microservices."""
 
 from typing import Any, List, Optional
 
-from .base_exception import PhoenixBaseException
+from .business_exception import BusinessException
 
 
-class InternalServerErrorException(PhoenixBaseException):
+class InternalServerErrorException(BusinessException):
     """
     Exception for internal server errors (HTTP 500).
     

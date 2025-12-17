@@ -1,11 +1,11 @@
-"""Service Unavailable (503) exception for Phoenix microservices."""
+"""Service Unavailable (503) exception for microservices."""
 
 from typing import Any, List, Optional
 
-from .base_exception import PhoenixBaseException
+from .business_exception import BusinessException
 
 
-class ServiceUnavailableException(PhoenixBaseException):
+class ServiceUnavailableException(BusinessException):
     """
     Exception for service unavailable errors (HTTP 503).
     
