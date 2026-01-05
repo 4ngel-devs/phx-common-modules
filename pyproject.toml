@@ -10,6 +10,7 @@ dependencies = [
     "fastapi>=0.104.0",
     "python-jose[cryptography]>=3.3.0",
     "fastapi-keycloak>=1.0.10",
+    "httpx>=0.25.0",
 ]
 
 [project.optional-dependencies]
@@ -25,4 +26,4 @@ testpaths = ["tests"]
 python_files = ["test_*.py"]
 python_classes = ["Test*"]
 python_functions = ["test_*"]
-addopts = "-v --cov=src --cov-report=term-missing"
+addopts = "-v --cov=sucrim --cov-report=term-missing"
