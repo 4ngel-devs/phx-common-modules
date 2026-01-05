@@ -5,7 +5,7 @@ from zoneinfo import ZoneInfo
 
 import pytest
 
-from src.utils.date_utils import DateUtils, MEXICO_TIMEZONE
+from sucrim.utils.date_utils import DateUtils, MEXICO_TIMEZONE
 
 
 class TestDateUtils:

@@ -5,7 +5,7 @@ from unittest.mock import patch
 
 import pytest
 
-from src.auth.keycloak_config import (
+from sucrim.keycloak.keycloak_config import (
     KeycloakConfig,
     get_idp,
     get_keycloak_config,
@@ -104,7 +104,7 @@ class TestGetKeycloakConfig:
     def test_get_keycloak_config_returns_singleton(self):
         """Test that get_keycloak_config returns the same instance (singleton)."""
         # Reset the global variable by importing and clearing
-        import src.auth.keycloak_config as kc_module
+        import sucrim.keycloak.keycloak_config as kc_module
 
         kc_module._keycloak_config = None
 
@@ -116,7 +116,7 @@ class TestGetKeycloakConfig:
 
     def test_get_keycloak_config_creates_new_instance_if_none(self):
         """Test that get_keycloak_config creates a new instance if None."""
-        import src.auth.keycloak_config as kc_module
+        import sucrim.keycloak.keycloak_config as kc_module
 
         kc_module._keycloak_config = None
 
@@ -127,7 +127,7 @@ class TestGetKeycloakConfig:
 
     def test_get_keycloak_config_reads_env_vars(self):
         """Test that get_keycloak_config reads environment variables."""
-        import src.auth.keycloak_config as kc_module
+        import sucrim.keycloak.keycloak_config as kc_module
 
         kc_module._keycloak_config = None
 
@@ -149,10 +149,10 @@ class TestGetKeycloakConfig:
 class TestGetIdp:
     """Test cases for get_idp function."""
 
-    @patch("src.auth.keycloak_config.FastAPIKeycloak")
+    @patch("sucrim.keycloak.keycloak_config.FastAPIKeycloak")
     def test_get_idp_returns_singleton(self, mock_fastapi_keycloak):
         """Test that get_idp returns the same instance (singleton)."""
-        import src.auth.keycloak_config as kc_module
+        import sucrim.keycloak.keycloak_config as kc_module
 
         kc_module._idp_instance = None
         kc_module._keycloak_config = None
@@ -166,10 +166,10 @@ class TestGetIdp:
         assert idp1 is idp2
         assert id(idp1) == id(idp2)
 
-    @patch("src.auth.keycloak_config.FastAPIKeycloak")
+    @patch("sucrim.keycloak.keycloak_config.FastAPIKeycloak")
     def test_get_idp_creates_new_instance_if_none(self, mock_fastapi_keycloak):
         """Test that get_idp creates a new instance if None."""
-        import src.auth.keycloak_config as kc_module
+        import sucrim.keycloak.keycloak_config as kc_module
 
         kc_module._idp_instance = None
         kc_module._keycloak_config = None
@@ -181,13 +181,13 @@ class TestGetIdp:
         assert idp is not None
         assert idp == mock_instance
 
-    @patch("src.auth.keycloak_config.FastAPIKeycloak")
-    @patch("src.auth.keycloak_config.get_keycloak_config")
+    @patch("sucrim.keycloak.keycloak_config.FastAPIKeycloak")
+    @patch("sucrim.keycloak.keycloak_config.get_keycloak_config")
     def test_get_idp_uses_config_from_get_keycloak_config(
         self, mock_get_config, mock_fastapi_keycloak
     ):
         """Test that get_idp uses configuration from get_keycloak_config."""
-        import src.auth.keycloak_config as kc_module
+        import sucrim.keycloak.keycloak_config as kc_module
 
         kc_module._idp_instance = None
 
@@ -217,10 +217,10 @@ class TestGetIdp:
         assert call_args["realm"] == "test-realm"
         assert call_args["callback_uri"] == "https://app.example.com/callback"
 
-    @patch("src.auth.keycloak_config.FastAPIKeycloak")
+    @patch("sucrim.keycloak.keycloak_config.FastAPIKeycloak")
     def test_get_idp_calls_fastapi_keycloak_with_config(self, mock_fastapi_keycloak):
         """Test that get_idp calls FastAPIKeycloak with correct parameters."""
-        import src.auth.keycloak_config as kc_module
+        import sucrim.keycloak.keycloak_config as kc_module
 
         kc_module._idp_instance = None
         kc_module._keycloak_config = None

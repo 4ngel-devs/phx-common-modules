@@ -5,14 +5,14 @@ from fastapi import FastAPI, HTTPException, Request
 from fastapi.testclient import TestClient
 from jose import ExpiredSignatureError
 
-from src.exceptions import (
+from sucrim.http.errors import (
     BadRequestException,
     BusinessException,
     InternalServerErrorException,
     NotFoundException,
     UnauthorizedException,
 )
-from src.http.exception_handlers import setup_exception_handlers
+from sucrim.http.exception_handlers import setup_exception_handlers
 
 
 class TestExceptionHandlers:

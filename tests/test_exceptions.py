@@ -2,7 +2,7 @@
 
 import pytest
 
-from src.exceptions import (
+from sucrim.http.errors import (
     BadRequestException,
     BusinessException,
     ConflictException,
